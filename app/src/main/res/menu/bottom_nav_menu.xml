@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dashboard"
+        android:title="dasboard"
+        android:icon="@drawable/baseline_space_dashboard_24"/>
+    <item
+        android:id="@+id/order"
+        android:title="order"
+        android:icon="@drawable/baseline_add_shopping_cart_24"/>
+    <item
+        android:id="@+id/overview"
+        android:title="overview"
+        android:icon="@drawable/baseline_archive_24"/>
+    <item
+        android:id="@+id/settings"
+        android:title="setting"
+        android:icon="@drawable/ic_baseline_settings_24"/>
+
+</menu>

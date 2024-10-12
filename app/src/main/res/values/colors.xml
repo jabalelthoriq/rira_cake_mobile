@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="coklat_tua">#4D290E</color>
+    <color name="krem">#FFE7CA</color>
+    <color name="krem2">#BF895C</color>
+    <color name="krem3">#91613D</color>
+    <color name="coklat">#723F18</color>
+    <color name="transparent"></color>
+</resources>
