@@ -6,15 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <FrameLayout
         android:id="@+id/flFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
@@ -26,31 +28,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu"/>
-
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:openDrawer="start"
-        android:id="@+id/drawer_layout"
-        android:fitsSystemWindows="true">
-
-        <include
-            layout="@layout/fragment_dashboard"/>
-
-        <com.google.android.material.navigation.NavigationView
-            android:layout_margin="39dp"
-            android:id="@+id/drawer_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:menu="@menu/navigation_drawner"
-            app:headerLayout="@layout/drawner"
-            tools:ignore="MissingConstraints"
-            app:itemIconPadding="25dp"/>
-
-
-    </androidx.drawerlayout.widget.DrawerLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
