@@ -1,63 +1,120 @@
 package com.jabrix.rira_cake;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SettingFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SettingFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private ImageView profilePicture;
+    private TextView usernameText;
+    private Button keluarAkun, btnUbahProfil, ulasAplikasi, btnKeamananAkun;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
-    public SettingFragment() {
-        // Required empty public constructor
-    }
+        // Inisialisasi Views
+        profilePicture = view.findViewById(R.id.profilePicture);
+        usernameText = view.findViewById(R.id.usernameText);
+        keluarAkun = view.findViewById(R.id.keluarAkun);
+        btnUbahProfil = view.findViewById(R.id.btnubahProfil);
+        ulasAplikasi = view.findViewById(R.id.btnulasAplikasi);
+        btnKeamananAkun = view.findViewById(R.id.btnkeamananAkun);
+        // Muat data awal
+        loadUserData();
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FourFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SettingFragment newInstance(String param1, String param2) {
-        SettingFragment fragment = new SettingFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        // Tombol Logout dengan Konfirmasi
+        keluarAkun.setOnClickListener(v -> {
+            new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                    .setTitle("Konfirmasi Logout")
+                    .setMessage("Apakah Anda yakin ingin keluar dari akun?")
+                    .setPositiveButton("Ya", (dialog, which) -> {
+                        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.clear();
+                        editor.apply();
+
+                        Intent intent = new Intent(requireContext(), Login.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    })
+                    .setNegativeButton("Tidak", null)
+                    .show();
+        });
+
+        // Tombol untuk membuka Fragment Ubah Profil
+        btnUbahProfil.setOnClickListener(v -> {
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.flFragment, new ubah_profil());
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
+
+        // Tombol untuk membuka Fragment Keamanan Akun
+        btnKeamananAkun.setOnClickListener(v -> {
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.flFragment, new KeamananAkun());
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
+
+        // Tombol untuk menampilkan Dialog Ulas Aplikasi
+        ulasAplikasi.setOnClickListener(v -> showReviewDialog());
+
+        return view;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onResume() {
+        super.onResume();
+        loadUserData(); // Muat ulang data saat fragment aktif kembali
+    }
+
+    private void loadUserData() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "Guest");
+        String imageUriString = sharedPreferences.getString("profileImage", null);
+
+        if (username == null || username.isEmpty()) {
+            username = "Guest";
+        }
+        usernameText.setText(username);
+
+        if (imageUriString != null) {
+            try {
+                Uri imageUri = Uri.parse(imageUriString);
+                profilePicture.setImageURI(imageUri);
+            } catch (Exception e) {
+                profilePicture.setImageResource(R.drawable.ic_baseline_person_24); // Gambar default
+            }
+        } else {
+            profilePicture.setImageResource(R.drawable.ic_baseline_person_24); // Gambar default
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+    private void showReviewDialog() {
+        android.app.Dialog dialog = new android.app.Dialog(requireContext());
+        dialog.setContentView(R.layout.dialog_ulas_aplikasi);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        dialog.findViewById(R.id.btnSubmitReview).setOnClickListener(v -> {
+            Toast.makeText(requireContext(), "Terima kasih atas ulasan Anda!", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 }

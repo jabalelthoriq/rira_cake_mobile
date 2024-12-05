@@ -1,4 +1,5 @@
 plugins {
+
     alias(libs.plugins.android.application)
 }
 
@@ -32,6 +33,7 @@ android {
 }
 
 dependencies {
+
 
     implementation(libs.appcompat)
     implementation(libs.material)

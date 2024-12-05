@@ -1,0 +1,97 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FBE4CE">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Tombol kembali -->
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="#4F2F1D"
+            android:text="Back"
+            android:drawableLeft="@drawable/ic_back_arrow"
+            />
+
+
+
+        <!-- Foto profil -->
+
+        <!-- Form input -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_baseline_person_24"
+                android:contentDescription="Profile Picture"
+                android:background="@drawable/profile_picture_border"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="4dp" />
+
+
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edtFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:background="@drawable/rounded_kelolaakun"
+            android:padding="12dp"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:background="@drawable/rounded_kelolaakun"
+            android:padding="12dp"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/edtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone"
+            android:background="@drawable/rounded_kelolaakun"
+            android:padding="12dp"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/edtAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:background="@drawable/rounded_kelolaakun"
+            android:padding="12dp"
+            android:layout_marginTop="12dp" />
+
+        <!-- Tombol Submit -->
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#4F2F1D"
+            android:text="Submit"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</ScrollView>
